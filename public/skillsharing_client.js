@@ -123,6 +123,7 @@ async function pollTalks(update){
     let response;
     try {
       response = await fetchOK("talks", {
+        //extra headers that inform sever to delay response if no new talks are present
         headers: tag && {"If-None-Match": tag,
                         "Prefer": "wait=90"}
       });

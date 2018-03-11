@@ -49,6 +49,7 @@ SkillShareServer.prototype.talkResponse = function() {
   }
   return {
     body: JSON.stringify(talks), // turn array into JSON
+    //extra headers that inform sever to delay response if no new talks are present
     headers: {"Content-Type": "application/json",
               "ETag": `"${this.version}"`}
   };
@@ -123,6 +124,7 @@ router.add("PUT", talkPath,
                                     presenter: talk.presenter,
                                     summary: talk.summary,
                                     comments: []};
+              //updated() notifies waiting long polling requests about changes
               server.updated();
               return {status: 204}
             });
